@@ -51,6 +51,16 @@ python manage.py runserver
 - 프로젝트 폴더내 들어가보면, 다양한 .py 파일들이 있음.
 - urls.py
   - 사용자가 어떤 URL 형식으로 접근했을 때, 어떻게 웹사이트를 작동시킬지에 대해 정리해둠
+  - `localhost:8000/admin` 에 접속시 admin site 로 안내해줌
+
+```
+urlpatterns = [
+	path('admin/', admin.site.urls)
+]
+```
+
+
+
 - settings.py
   - 장고 프로젝트의 설정을 담고있음
 
