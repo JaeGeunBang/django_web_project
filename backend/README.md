@@ -104,7 +104,7 @@ python manage.py startapp pages
 
 - 생성한 App에 `models.py` 아래와 같은 model을 위한 class를 추가한다.
 
-```
+```python
 from django.db import models
 
 class Post(models.Model):
@@ -117,7 +117,7 @@ class Post(models.Model):
   - 수행후 migration/0001_initial.py 파일이 생성된것을 볼수있다.
   - 최초 makemigrations 실행시 생성되는 파일이다.
 
-```
+```python
 python manage.py makemigrations
 
 ..
@@ -150,7 +150,7 @@ admin.site.register(Post)
 
 - 위에서 생성한 `model.py` 에 신규 컬럼을 추가한다고 가정하자.
 
-```
+```python
 ...
 updated_at = models.DateTimeField(auto_now=True)
 ...
@@ -162,5 +162,48 @@ updated_at = models.DateTimeField(auto_now=True)
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
+```
+
+
+
+### 웹 페이지 생성 후 URL 설정하기
+
+- url은 urls.py에서 내용을 추가해야한다.
+  - 아래와 같이 추가하면, /blog url 접속시 blog.urls를 포함한다는 의미이다.
+  - 이는, blog 폴더 내 `urls.py`에 관련 내용을 추가해주어야 한다.
+
+```python
+urlpatterns = [
+    path('blog/', include('blog.urls')),
+	...
+]
+```
+
+- blog내 urls.py에서 내용을 추가한다.
+  - 특정 추가 path없이 /blog 로 들어올 경우, views.index를 실행한다.
+  - views.py를 생성한다.
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index)
+]
+```
+
+- blog내 views.py를 생성 후 아래 내용을 추가한다.
+  - blog내 index.html를 반환해주기 위해, blog 내 templates/blog/index.html를 생성 후 재시도를 해본다.
+
+```python
+from django.shortcuts import render
+
+# Create your views here.
+
+def index(request) :
+    return render(
+        request,
+        'blog/index.html',
+    )
 ```
 
