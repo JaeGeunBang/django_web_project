@@ -20,7 +20,7 @@
         </div>
         <div class="card-footer text-muted">
           Posted on {{ p.created_at }}
-          <a href="#"> 작성자 </a>
+          <a href="#"> {{ p.author | upper }} </a>
         </div>
       </div>
       {% endfor %}
