@@ -2,6 +2,18 @@
 
 
 
+### 목차
+
+- 가상환경 셋팅
+- 프로젝트 파일 설명
+- 데이터베이스 생성 (SQLite3)
+- 앱 생성
+- 모델을 DB에 생성 및 수정
+- 웹 페이지 생성 후 URL 설정
+- 테스트 코드 작성
+
+
+
 ### 가상환경 셋팅 
 
 PyCharm IDE를 설치후 가상환경을 만들것
@@ -207,3 +219,19 @@ def index(request) :
     )
 ```
 
+
+
+### 테스트 코드 작성
+
+- 테스트 코드는 tests.py에 아래와 같이 작성할수 있다.
+
+```python
+from django.test import TestCase
+
+# Create your tests here.
+class TestView(TestCase):
+    def test_post_list(self):
+        self.assertEqual(2, 2)
+```
+
+- 이후 python manage.py test를 하여, 테스트 코드를 수행할 수 있다.
