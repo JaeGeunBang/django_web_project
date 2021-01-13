@@ -6,7 +6,7 @@ from .models import Post, Category
 ### CBV 방식 (Class 방식)
 class PostList(ListView):
     model = Post
-    template_name = 'blog/index.html'
+    #template_name = 'blog/index.html' # 'blog/index.html' 지우고 post_list.html로 수정
     ordering = '-pk'
 
     def get_context_data(self, **kwargs):
@@ -17,7 +17,7 @@ class PostList(ListView):
 
 class PostDetail(DetailView):
     model = Post
-    template_name = 'blog/single_post_page.html'
+    #template_name = 'blog/post_detail.html' #'blog/post_detail.html' 지우고 post_datail.html로 수정
 
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data()
@@ -32,7 +32,7 @@ class PostDetail(DetailView):
 
 #    return render(
 #        request,
-#        'blog/index.html',
+#        'blog/post_list.html',
 #        {
 #            'posts': posts,
 #        }
@@ -43,7 +43,7 @@ class PostDetail(DetailView):
 
 #    return render (
 #        request,
-#        'blog/single_post_page.html',
+#        'blog/post_detail.html',
 #        {
 #           'post': post,
 #        }
