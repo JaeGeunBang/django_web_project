@@ -12,6 +12,8 @@
 - 웹 페이지 생성 후 URL 설정
 - 테스트 코드 작성
 
+- 장고 쉘 
+
 
 
 ### 가상환경 셋팅 
@@ -248,3 +250,50 @@ class TestView(TestCase):
 ```
 
 - 이후 python manage.py test를 하여, 테스트 코드를 수행할 수 있다.
+
+
+
+### 장고 쉘
+
+- 장고 쉘을 통해 지금까지 개발한 내용을 테스트해볼수 있다.
+- 아래 명령을 통해 실행한다.
+
+```
+> python manage.py shell
+```
+
+- 앞서 생성한 Post, Category 정보를 조회해본다
+
+```
+> from blog.models import Post, Category
+> Post.objects.count()
+6
+> Category.objects.count()
+3
+> exit()
+```
+
+- 장고쉘 뿐만 아니라 `장고 쉘 플러스`를 통해 더 확장된 기능을 사용할 수 있다. 
+- 설치
+
+```
+> pip install django_extensions
+> pip install ipython
+```
+
+- seetings.py에 아래 내용 추가
+
+```
+INSTALLED_APPS = [
+
+ ...
+ 'django_extensions',
+]
+```
+
+- 실행
+
+```
+> python manage.py shell_plus
+```
+
