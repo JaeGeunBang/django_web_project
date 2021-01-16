@@ -25,6 +25,25 @@ class PostDetail(DetailView):
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
         return context
 
+def category_page(request, slug):
+    if slug =='no_category':
+        category = '미분류'
+        post_list = Post.objects.filter(category=None)
+    else:
+        category = category = Category.objects.get(slug=slug)
+        post_list = Post.objects.filter(category=category)
+
+    return render(
+        request,
+        'blog/post_list.html',
+        {
+            'post_list': post_list,
+            'categories': Category.objects.all(),
+            'no_category_post_count': Post.objects.filter(category=None).count(),
+            'category': category,
+        }
+    )
+
 ### FBV 방식 (Function 방식)
 #def index(request) :
 #    #posts = Post.objects.all() # 데이터베이스에 쿼리를 날려 Post 관련 데이터를 가져온다.
