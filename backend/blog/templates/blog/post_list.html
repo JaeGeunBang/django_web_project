@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block main_area %}
-    <h1> Blog {% if category %} <span class="badge badge-secondary"> {{ category }} </span> {% endif %} </h1>
+    <h1> Blog {% if category %} <span style="color:blue" class="badge badge-secondary float-right"> {{ category }} </span> {% endif %} </h1>
     {% if post_list.exists %}
       {% for p in post_list %}
       <div class="card mb-4" id="post-{{ p.pk }}">
@@ -12,9 +12,9 @@
         {% endif %}
         <div class="card-body">
           {% if p.category %}
-            <span class="badge badge-secondary float-right">{{p.category}}</span>
+            <span style="color:red" class="badge badge-secondary float-right">{{ p.category }}</span>
           {% else %}
-            <span class="badge badge-secondary float-right">미분류</span>
+            <span style="color:red" class="badge badge-secondary float-right">미분류</span>
           {% endif %}
           <h2 class="card-title">{{ p.title }}</h2>
           {% if p.hook_text %}
@@ -23,9 +23,9 @@
           <p class="card-text">{{ p.content | truncatewords:20 }} </p>
 
           {% if p.tags.exists %}
-            <i class="fas fa-tags"></i>
+            <i style="color:red" class="fas fa-tags"></i>
             {% for tag in p.tags.iterator %}
-              <a href="{{ tag.get_absolute_url }}"><span class="badge badge-pill badge-light">{{ tag }}</span></a>
+              <a href="{{ tag.get_absolute_url }}"><span style="color:blue" class="badge badge-pill badge-light">{{ tag }}</span></a>
             {% endfor %}
             <br/>
             <br/>
