@@ -41,6 +41,9 @@ class TestView(TestCase):
         self.post_003.tags.add(self.tag_python_kor)
         self.post_003.tags.add(self.tag_python)
 
+        self.user_obama.is_staff = True
+        self.user_obama.save()
+
     def category_card_test(self, soup):
         categories_card = soup.find('div', id='categories-card')
         self.assertIn('Categories', categories_card.text)
@@ -189,8 +192,13 @@ class TestView(TestCase):
         response = self.client.get('/blog/create_post/')
         self.assertNotEqual(response.status_code, 200)
 
-        # 로그인 이후에 다시 정상
+        # staff 가 아닌 trump가 로그인할 경우
         self.client.login(username='trump', password='somepassword')
+        response = self.client.get('/blog/create_post/')
+        self.assertNotEqual(response.status_code, 200)
+
+        # staff 인 obama로 로그인할 경우
+        self.client.login(username='obama', password='somepassword')
         response = self.client.get('/blog/create_post/')
         self.assertEqual(response.status_code, 200)
 
@@ -209,4 +217,4 @@ class TestView(TestCase):
         )
         last_post = Post.objects.last()
         self.assertEqual(last_post.title, 'Post Form 만들기')
-        self.assertEqual(last_post.author.username, 'trump')
+        self.assertEqual(last_post.author.username, 'obama')
