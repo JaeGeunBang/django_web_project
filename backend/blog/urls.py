@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/', views.PostDetail.as_view()), # 정수 형태의 값을 pk 하는 변수로 담는다는 의미 (CBV 방식)
     path('category/<str:slug>/', views.category_page), # category page
     path('tag/<str:slug>/', views.tag_page), # tag page
+    path('create_post/', views.PostCreate.as_view()),
 ]

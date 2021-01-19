@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Category, Tag
 # Create your views here.
 
@@ -25,6 +26,19 @@ class PostDetail(DetailView):
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
         return context
 
+class PostCreate(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(PostCreate, self).form_valid(form)
+        else:
+            return redirect('/blog/')
+
+### FBV 방식 (Function 방식)
 def category_page(request, slug):
     if slug =='no_category':
         category = '미분류'
@@ -59,7 +73,6 @@ def tag_page(request, slug):
         }
     )
 
-### FBV 방식 (Function 방식)
 #def index(request) :
 #    #posts = Post.objects.all() # 데이터베이스에 쿼리를 날려 Post 관련 데이터를 가져온다.
 #    posts = Post.objects.all().order_by('-pk')  # 최신 정보부터 가져오기

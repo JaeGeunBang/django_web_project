@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>{% block head_title %}Blog{% endblock %}</title>
+    <link href="{% static 'blog/bootstrap/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+</head>
+<body>
+
+    {% include 'blog/navbar.html' %}
+    <div class="container my-3">
+      <div class="row">
+          <div class="col-12" id="main-area">
+              {% block main_area %}
+              {% endblock %}
+          </div>
+      </div>
+      <ul class="pagination justify-content-center mb-4">
+        <li class="page-item">
+          <a class="page-link" href="#">&larr; Older</a>
+        </li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#">Newer &rarr;</a>
+        </li>
+      </ul>
+    </div>
+
+    {% include 'blog/footer.html' %}
+</body>
+</head>
+</html>

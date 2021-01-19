@@ -11,8 +11,8 @@
 - 모델을 DB에 생성 및 수정
 - 웹 페이지 생성 후 URL 설정
 - 테스트 코드 작성
-
 - 장고 쉘 
+- Post, Get 방식의 차이는?
 
 
 
@@ -296,4 +296,20 @@ INSTALLED_APPS = [
 ```
 > python manage.py shell_plus
 ```
+
+
+
+##  Post, Get 차이는?
+
+- Post, Get 모두 페이지 내에 입력한 값을 서버에 전달해 데이터베이스에 저장할수 있다.
+- Get?
+  - 파라미터를 통해 데이터를 넘긴다.
+  - ex) http://example.com/create_post/?title=애국가&content=동해물과
+- Post?
+  - HTTP Body를 통해 데이터를 넘긴다.
+  - ex) 
+- Get은 간편한 방식이지만, 몇가지 한계가 있음
+  - 길이의 제한이 있으며, `Post는 HTTP Body를 통해 보내기 때문에 길이의 제한이 없다.`
+  - 첨부파일을 보낼수 없다. `이럴땐 Post를 사용해야 한다.`
+  - Parameter가 당장 눈에 노출되어 보안에 취약하다. 하지만, Post도 당장 눈에 보이지는 않겠지만 Fiddler를 통해 데이터를 확인할 수 있어, 꼭 암호화를 해야한다.
 
