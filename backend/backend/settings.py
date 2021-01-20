@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_extensions',
     'crispy_forms',
+    'markdownx',
     'blog',
     'single_pages',
     'allauth',
