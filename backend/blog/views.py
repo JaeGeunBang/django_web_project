@@ -12,6 +12,7 @@ class PostList(ListView):
     model = Post
     #template_name = 'blog/index.html' # 'blog/index.html' 지우고 post_list.html로 수정
     ordering = '-pk'
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data()
