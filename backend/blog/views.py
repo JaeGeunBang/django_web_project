@@ -165,6 +165,15 @@ def new_comment(request, pk):
     else:
         raise PermissionDenied
 
+def delete_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post = comment.post
+    if request.user.is_authenticated and request.user == comment.author:
+        comment.delete()
+        return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
+
 #def index(request) :
 #    #posts = Post.objects.all() # 데이터베이스에 쿼리를 날려 Post 관련 데이터를 가져온다.
 #    posts = Post.objects.all().order_by('-pk')  # 최신 정보부터 가져오기
