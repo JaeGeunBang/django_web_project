@@ -53,6 +53,7 @@ class Post(models.Model):
 
     def get_file_name(self):
         return os.path.basename(self.file_upload.name)
+
     def get_file_ext(self):
         return self.get_file_name().split('.')[-1]
 
@@ -68,10 +69,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.author}::{self.content}'
+
     def get_absolute_url(self):
         return f'{self.post.get_absolute_url()}#comment-{self.pk}'
+
     def get_avatar_url(self):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
-            return 'http://placeholdit/50x50'
+            return 'http://placehold.it/50x50'
