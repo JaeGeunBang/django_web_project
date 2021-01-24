@@ -13,6 +13,7 @@
 - 테스트 코드 작성
 - 장고 쉘 
 - Post, Get 방식의 차이는?
+- 도커준비
 
 
 
@@ -313,3 +314,31 @@ INSTALLED_APPS = [
   - 첨부파일을 보낼수 없다. `이럴땐 Post를 사용해야 한다.`
   - Parameter가 당장 눈에 노출되어 보안에 취약하다. 하지만, Post도 당장 눈에 보이지는 않겠지만 Fiddler를 통해 데이터를 확인할 수 있어, 꼭 암호화를 해야한다.
 
+
+
+## 도커준비
+
+- 아래 가상환경에 설치가된 라이브러리를 도커 컨테이너로 옮기기
+
+```
+pip freeze > requirements.txt
+```
+
+
+
+- Docker, docker-compose.yml, .env.dev 파일 작성 후 docker-compose를 통해 도커 컨테이너 실행하기
+
+```
+docker-compose build
+docker-compose up
+```
+
+> Window에서 Docker 환경의 실행을 위해 WSL2 설정이 필요하다.
+
+
+
+이후 `docker-compose up -d`명령을 통해 django 컨테이너를 백그라운드로 실행할 수 있음
+
+- 이후 127.0.0.1:8000 접속해볼 수 있다.
+
+또한, `docker-compose exec web python manage.py test`를 통해 테스트를 할수 있다.
