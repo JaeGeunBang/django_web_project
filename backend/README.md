@@ -342,3 +342,46 @@ docker-compose up
 - 이후 127.0.0.1:8000 접속해볼 수 있다.
 
 또한, `docker-compose exec web python manage.py test`를 통해 테스트를 할수 있다.
+
+
+
+### PostgreSQL 연동
+
+- 기존 sqlite3 를 PostgreSQL로 연동할 수 있다. 관련된 내용을 docker-compose.yml에 추가한다.
+
+**docker-compose.yml**
+
+```
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=do_it_django_db_user
+      - POSTGRES_PASSWORD=do_it_django_db_password
+      - POSTGRES_DB=do_it_django_dev
+volumes:
+  postgres_data:
+```
+
+- 환경 변수값들은 `.env.dev`에 정의하며, postgreSQL 관련 내용을 `settings.py`에 정의해준다.
+  - 이후 장고, 디비 컨테이너가 실행된 상태에서 migrate를 수행한다.
+
+```
+docker-compose exec web python manage.py migrate
+```
+
