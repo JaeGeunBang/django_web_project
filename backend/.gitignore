@@ -12,3 +12,6 @@ local_settings.py
 db.sqllite3-journal
 __pycache__
 _media
+_static
+.env.prod
+.env.prod.db
